@@ -18,7 +18,7 @@ Based on an implementation co-written with [A-Artemis](https://github.com/A-Arte
 * `!riddle`: Lists the riddle of the day scraped from riddles.com.
 
 # Docker
-There is also a Dockerfile available for this bot (makes setup a little easier). The docker variant uses the Python 3 port of the bot.
+There is also a Dockerfile available for this bot, which makes setup a little easier.
 ## Docker setup with Dockerfile
 1. Make sure you have docker installed
 2. Pull this repo: `git clone git@github.com:jc0b/discord-bot.git`
