@@ -5,3 +5,5 @@ services:
         context: ./
     restart: on-failure
     container_name: discord_bot
+    environment:
+      - PYTHONUNBUFFERED=1

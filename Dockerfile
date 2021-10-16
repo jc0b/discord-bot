@@ -1,9 +1,8 @@
-FROM python
-MAINTAINER Jacob Burley <j@jc0b.computer>
+FROM python:3.9.5-slim-buster
+LABEL Author="Jacob Burley <j@jc0b.computer>"
+
+RUN pip3 install python-dotenv discord.py beautifulsoup4 requests termcolor
+
 COPY ./ /discordBot
-RUN cd /discordBot \
-	&& pip3 install python-dotenv discord.py beautifulsoup4 requests termcolor \
-	&& echo "Making sure that .env exists..." \
-	&& test -f .env
 WORKDIR /discordBot
 CMD ["python3", "bot.py"]
