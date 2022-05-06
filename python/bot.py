@@ -1,6 +1,6 @@
 import os
 import json
-import discord
+import nextcord
 import random
 import re
 import requests 
@@ -16,7 +16,7 @@ load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('GUILD')
 
-bot = discord.Client()
+bot = nextcord.Client()
 
 @bot.event
 async def on_ready():
@@ -27,7 +27,7 @@ async def on_ready():
 
 	print(f'{bot.user} has successfully connected to {guild.name}\n')
 
-	await bot.change_presence(activity=discord.Game(name='the game of life.'))
+	await bot.change_presence(activity=nextcord.Game(name='the game of life.'))
 	members = '\n - '.join([f'{member.name} : {member.id}'for member in guild.members])
 	print(f'Guild Members:\n - {members}')
 	

@@ -1,7 +1,7 @@
-FROM python:3.9.5-slim-buster
+FROM python:3.10.4-slim-buster
 LABEL Author="Jacob Burley <j@jc0b.computer>"
 
-RUN pip3 install python-dotenv discord.py beautifulsoup4 requests termcolor
+RUN pip3 install python-dotenv nextcord beautifulsoup4 requests
 
 COPY ./ /discordBot
 WORKDIR /discordBot

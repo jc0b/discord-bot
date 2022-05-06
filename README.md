@@ -2,13 +2,13 @@
 Based on an implementation co-written with [A-Artemis](https://github.com/A-Artemis).
 
 ## Requirements
-* Python 3.7 or higher and/or Docker
+* Python 3.8 or higher and/or Docker
 
 ## Setup
 1. Clone or pull the git repository. 
 2. Copy the `.env.example` file to a `.env` file, and add the Discord token as well as the Server ID to it: `cp .env.example .env`
-3. Install the following Python libraries by typing in in the terminal: `pip3 install python-dotenv discord.py beautifulsoup4 requests`
-4. Run the bot with `python3 bot.py`, or using Docker which is explained in a later section.
+3. Install the following Python libraries by typing in in the terminal: `pip3 install python-dotenv nextcord beautifulsoup4 requests`
+4. Run the bot with `python3 python/bot.py`, or using Docker which is explained in a later section.
 
 ## Commands
 * `!flip`: Flip a coin. Decide your fate.
@@ -23,8 +23,8 @@ There is also a Dockerfile available for this bot, which makes setup a little ea
 1. Make sure you have docker installed
 2. Pull this repo: `git clone git@github.com:jc0b/discord-bot.git`
 3. Copy the `.env.example` file to a `.env` file, and add the Discord token as well as the Server ID to it: `cp .env.example .env`
-4. Run `docker build -t discordbot .` to build the docker image.
-5. Run `docker run -d --name discord_bot discordbot` in order to then run a container based off of that image, with the container having the name `artemis_bot`
+4. Run `docker build -t discordbot ./python/` to build the docker image.
+5. Run `docker run -d --name discord_bot discordbot` in order to then run a container based off of that image, with the container having the name `discord_bot`
 
 You can then use `docker ps` to obtain a list of all running containers, and use `docker stop <id>` using either the `CONTAINER ID` or `NAME` to specify which container you want to stop.
 
