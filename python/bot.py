@@ -6,7 +6,6 @@ import re
 import requests 
 
 from dotenv import load_dotenv
-from riddles import get_riddle
 from urllib.parse import urlparse
 
 
@@ -63,10 +62,6 @@ async def on_message(message):
 			
 			dice = random.randint(1, default_dice)
 			await message.channel.send("The dice lands on: " + str(dice) + ".")
-		elif cmd == "riddle":
-			riddle_array = get_riddle()
-			riddle = riddle_array[0]
-			await message.channel.send(f'{riddle_array[0]}\n||{riddle_array[1]}||')
 		
 
 bot.run(TOKEN)
