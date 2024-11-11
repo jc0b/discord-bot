@@ -2,48 +2,52 @@ name: 'Build container and deploy to GHCR'
 
 on:
   push:
-    branches:
-      - main
+    tags:
+      - 'v*'
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  build:
+  build-and-push:
     name: 'Build'
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      
     steps:
       - name: "Build:checkout"
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - name: "Check if Git tag exists"
-        id: get_git_tag
-        run: |
-          echo "VERSION=$(git tag --points-at HEAD)" >> $GITHUB_ENV
-      - name: "Set Docker metadata"
-        id: meta
-        uses: docker/metadata-action@v3
-        with:
-          # list of Docker images to use as base name for tags
-          images: |
-            ghcr.io/jc0b/discordbot
-          # generate Docker tags based on the following events/attributes
-          tags: |
-            latest
-            ${{ env.VERSION }}
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
+
       - name: Login to GHCR
         if: github.event_name != 'pull_request'
-        uses: docker/login-action@v1
+        uses: docker/login-action@v2
         with:
-          registry: ghcr.io
+          registry: ${{ env.REGISTRY }}
           username: ${{ github.repository_owner }}
           password: ${{ secrets.PAT }}
+
+      - name: "Set Docker metadata"
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          # list of Docker images to use as base name for tags
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          # generate Docker tags based on the following events/attributes
+          tags: |
+            type=semver,pattern={{version}}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
       - name: Build and push
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v4
         with:
           context: python/
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-        if:
-          env.VERSION != ''
