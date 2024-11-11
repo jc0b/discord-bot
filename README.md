@@ -2,7 +2,7 @@
 Based on an implementation co-written with [A-Artemis](https://github.com/A-Artemis).
 
 ## Requirements
-* Python 3.8 or higher and/or Docker
+* Python 3.13 or higher and/or Docker
 
 ## Setup
 1. Clone or pull the git repository. 
